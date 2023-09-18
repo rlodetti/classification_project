@@ -25,47 +25,65 @@ def viz_1(df):
                 bbox_inches='tight')
 
 
-def viz_2(df, categorical):
+def viz_2(df,categorical):
     """
-    This function calculates the rate of each binary variable compared to whether or not the person has a heart condition. It then creates a visual to display the distribution. 
+    This function calculates the rate of each binary variable compared to whether or not the person has a heart condition. It then creates a visual to display the difference. 
     """
-    for cat in categorical:
-        resp = df[cat].value_counts().index
-        nn = (
-            (df[cat] == resp[0]) &
-            (df['Heart_Disease'] == 'No')).sum() / (df[cat] == resp[0]).sum()
-        ny = (
-            (df[cat] == resp[0]) &
-            (df['Heart_Disease'] == 'Yes')).sum() / (df[cat] == resp[0]).sum()
-        yn = (
-            (df[cat] == resp[1]) &
-            (df['Heart_Disease'] == 'No')).sum() / (df[cat] == resp[1]).sum()
-        yy = (
-            (df[cat] == resp[1]) &
-            (df['Heart_Disease'] == 'Yes')).sum() / (df[cat] == resp[1]).sum()
-        num = [nn, yn, ny, yy]
+    df2 = df.copy()
+    df2.loc[df2['Sex'] == 'Male', "Male"] = "Yes"
+    df2.loc[df2['Sex'] == 'Female', "Male"] = "No"
+    categories = []
+    data1 = []
+    data2 = []
+    diffs = []
 
-        fig, ax = plt.subplots(figsize=(4, 4))
-        im = ax.imshow([[nn, ny], [yn, yy]], cmap='Blues')
-        for i, j in enumerate(num):
-            text = str(round(j * 100, 2)) + '%'
-            ax.text(i // 2,
-                    i % 2,
-                    text,
-                    ha="center",
-                    va="center",
-                    color="tab:orange",
-                    weight="bold")
-        ax.set(xticks=[0, 1],
-               xticklabels=['No', 'Yes'],
-               xlabel='Heart Condition',
-               yticks=[0, 1],
-               yticklabels=[resp[0], resp[1]],
-               ylabel=cat)
-        plt.savefig('images/viz_2.jpg',
-                    bbox_extra_artists=[ax],
-                    bbox_inches='tight')
-        plt.show()
+    categorical2 = categorical.copy()
+    categorical2.remove('Sex')
+    categorical2.append('Male')
+
+    for cat in categorical2:
+        num1 = (
+            (df2[cat] == 'No') &
+            (df2['Heart_Disease'] == 'Yes')).sum() / (df2[cat] == 'No').sum()
+        num2 = (
+            (df2[cat] == 'Yes') &
+            (df2['Heart_Disease'] == 'Yes')).sum() / (df2[cat] == 'Yes').sum()
+        categories.append(cat)
+        data1.append(round(num1 * 100, 2))
+        data2.append(round(num2 * 100, 2))
+        diffs.append(round((num2 - num1) * 100, 2))
+    df3 = pd.DataFrame({
+        'Category': categories,
+        'No': data1,
+        'Yes': data2,
+        'Difference': diffs
+    }).sort_values('Difference', ascending=False)
+
+    def number_formatter(num):
+        if num > 0:
+            return "+" + str(num) + "%"
+        elif num < 0:
+            return "-" + str(j) + "%"
+        else:
+            return 0
+
+    fig, ax = plt.subplots(figsize=(8, 6))
+    ax = sns.barplot(x="Difference", y="Category", data=df3)
+    ax.set(title=
+           "How much more likely you are to have heart disease if you have...",
+           ylabel='',
+           xlabel='Change in Heart Disease Rate')
+    for i, j in enumerate(df3['Difference']):
+        cords = ax.patches[i].get_center()
+        ax.text(cords[0],
+                cords[1],
+                number_formatter(j),
+                va='center',
+                ha='center',
+                size='small',
+                color="w")
+
+    ax.xaxis.set_major_formatter(lambda x, pos: number_formatter(x))
 
 
 def model_scores(model, X, y, model_list=[], cv=5, model_name=''):
