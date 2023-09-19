@@ -25,7 +25,7 @@ def viz_1(df):
                 bbox_inches='tight')
 
 
-def viz_2(df,categorical):
+def viz_2(df, categorical):
     """
     This function calculates the rate of each binary variable compared to whether or not the person has a heart condition. It then creates a visual to display the difference. 
     """
@@ -70,7 +70,7 @@ def viz_2(df,categorical):
     fig, ax = plt.subplots(figsize=(8, 6))
     ax = sns.barplot(x="Difference", y="Category", data=df3)
     ax.set(title=
-           "How much more likely you are to have heart disease if you have...",
+           "Disparity of Heart Disease Rates by Feature",
            ylabel='',
            xlabel='Change in Heart Disease Rate')
     for i, j in enumerate(df3['Difference']):
@@ -203,3 +203,17 @@ def grid_search(X_train, y_train):
                             cv=5,
                             model_name='Best Estimator from GS')
     return ml5, df5
+
+
+class ColumnDropperTransformer():
+    def __init__(self,columns):
+        self.columns = columns
+
+    def transform(self,X,y=None):
+        return X.drop(self.columns,axis=1)
+
+    def fit(self, X, y=None):
+        return self 
+
+    def get_params(self, deep=True):
+        return {'columns': self.columns}
