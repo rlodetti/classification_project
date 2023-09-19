@@ -43,6 +43,7 @@ Of our 12 categorical variables:
 * There are 3 ordinal variables, that is, categories which have an order. These include `General_Health`, `Checkup`, and `Age_Category`.
 
 ![target_imbalance](./images/viz_1.jpg)
+
 Our target variable is very imbalanced. We'll need to be sure to address this during data prep, modeling and evaluation.
 
 Here is a visual representation illustrating the disparity in heart disease rates between individuals with a specific feature and those without it. For instance, approximately 6.06% of individuals without diabetes report experiencing a heart condition, whereas the rate is approximately 20.85% for those with diabetes, resulting in a substantial difference of approximately 14.79%.
@@ -66,18 +67,24 @@ Given that this data is from a questionare, feature importance relates to questi
 ***
 Now that we have found the final model, I will score each of our models on the test data. 
 
-<img src="./images/test_scores.jpg" alt="test scores" width="500" height="300" class="blog-image">
+![test_scores](./images/test_scores.jpg)
+
 The final model was the best performing model on the test data, capturing almost 81% of all of the positive cases. Given the over 300,000 data entries, lack of data leakage, and cross-validation done during training, I'm confident that this model would generalize. 
 
-<img src="./images/confusion_matrix.png" alt="confusion matrix" width="500" height="300" class="blog-image">
+![confusion_matrix](./images/confusion_matrix.png)
+
 Based on this confusion matrix our model would correctly predict 81% of positive cases and 72% of negative cases. It would incorrectly predict 28% of negative cases as positive and 19% of positive cases as negative. 
+
 ## Conclusions
 ***
+
 ### Recommendations
 - Based on our final model I would recommend that the hospital develop a questionaire to get information about their patience for all features except weight. 
+
 ### Limitations
 - This model would not be as helpful in cases where the cost of a positve identification is increased, such as recommending a more invasive procedure, medication, or otherwise more expenive or cumbersome consequence.  
 - It may be difficult to gather 17 pieces of information about patients. 
+
 ### Next Steps
 - Determine with stakeholders which questions to include based on their feature importance, ease of retrieving that data, and cost of excluding that data from the model
 - Determine with stakeholders the appropriate threshold to balance out true positive rate and false positive rate.
@@ -104,5 +111,10 @@ For additional info, contact Ron Lodetti at [ron.lodetti@gmail.com](mailto:ron.l
 ├── housing_project_presentation.pdf
 └── housing_project.ipynb
 
+
+```
+
+
+```python
 
 ```
