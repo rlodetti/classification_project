@@ -5,12 +5,13 @@ from sklearn.pipeline import Pipeline
 from sklearn.model_selection import cross_validate, GridSearchCV, train_test_split, StratifiedKFold, RandomizedSearchCV
 from sklearn.metrics import make_scorer, fbeta_score, precision_score, recall_score, accuracy_score, roc_auc_score
 sns.set_context(context='notebook')
+sns.set_style('whitegrid')
 
 def viz_1(df):
     """
     This function makes a bar graph showing the distribution of respondents with and without a heart condition.
     """
-    fig, ax = plt.subplots(figsize=(6, 6))
+    fig, ax = plt.subplots(figsize=(5, 5))
     ax = sns.countplot(data=df, x="Heart_Disease")
     bar_heights = [p.get_height() for p in ax.patches]
     ax.text(0, bar_heights[0], '92%', va='bottom', ha='center', size='large')

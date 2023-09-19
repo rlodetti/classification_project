@@ -77,14 +77,10 @@ Based on this confusion matrix our model would correctly predict 81% of positive
 
 ## Conclusions
 ***
-
 ### Recommendations
-- Based on our final model I would recommend that the hospital develop a questionaire to get information about their patience for all features except weight. 
-
+- Based on our final model I would recommend that the hospital develop a 6-question questionaire to get information about their patience for all features except weight. 
 ### Limitations
-- This model would not be as helpful in cases where the cost of a positve identification is increased, such as recommending a more invasive procedure, medication, or otherwise more expenive or cumbersome consequence.  
-- It may be difficult to gather 17 pieces of information about patients. 
-
+- This model would not be as helpful in cases where the cost of a positve identification is increased, such as recommending a more invasive procedure, medication, or otherwise more expenive or cumbersome consequence.   
 ### Next Steps
 - Determine with stakeholders which questions to include based on their feature importance, ease of retrieving that data, and cost of excluding that data from the model
 - Determine with stakeholders the appropriate threshold to balance out true positive rate and false positive rate.
@@ -92,7 +88,7 @@ Based on this confusion matrix our model would correctly predict 81% of positive
 
 ## For More Information
 
-See the full analysis in the [Jupyter Notebook](./housing_project.ipynb) or review this [presentation](./housing_project_presentation.pdf).
+See the full analysis in the [Jupyter Notebook](./classification_project.ipynb) or review this [presentation](./classification_project_presentation.pdf).
 
 For additional info, contact Ron Lodetti at [ron.lodetti@gmail.com](mailto:ron.lodetti@gmail.com)
 
@@ -101,15 +97,14 @@ For additional info, contact Ron Lodetti at [ron.lodetti@gmail.com](mailto:ron.l
 ```
 ├── code
 │   ├── __init__.py
-│   ├── data_modeling.py
-│   ├── data_prep.py
-│   └── data_visuals.py
+│   └── my_module.py
 ├── data
 ├── images
+├── pickles
 ├── README.md
 ├── requirements.txt
-├── housing_project_presentation.pdf
-└── housing_project.ipynb
+├── classification_project_presentation.pdf
+└── classification_project.ipynb
 
 
 ```
