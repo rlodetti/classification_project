@@ -11,7 +11,7 @@ def viz_1(df):
     """
     This function makes a bar graph showing the distribution of respondents with and without a heart condition.
     """
-    fig, ax = plt.subplots(figsize=(5, 5))
+    fig, ax = plt.subplots(figsize=(5, 4))
     ax = sns.countplot(data=df, x="Heart_Disease")
     bar_heights = [p.get_height() for p in ax.patches]
     ax.text(0, bar_heights[0], '92%', va='bottom', ha='center', size='large')
@@ -68,7 +68,7 @@ def viz_2(df, categorical):
         else:
             return 0
 
-    fig, ax = plt.subplots(figsize=(8, 6))
+    fig, ax = plt.subplots(figsize=(7, 4))
     ax = sns.barplot(x="Difference", y="Category", data=df3)
     ax.set(title=
            "Disparity of Heart Disease Rates by Feature",

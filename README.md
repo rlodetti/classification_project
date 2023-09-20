@@ -6,7 +6,7 @@
 
 ## Overview
 ***
-This project uses machine learning and data from the CDC's [2021 Behavioral Risk Factor Surveillance System (BRFSS)](https://www.cdc.gov/brfss/annual_data/annual_2021.html) to help a hospital target patience who would benefit from an educational program about heart health. After model iteration and hyperparameter tuning, our final model can correctly predict 81% of people with a heart condition, while only incorrectly predicting 28% of negative cases as positive. 
+This project uses machine learning and data from the CDC's [2021 Behavioral Risk Factor Surveillance System (BRFSS)](https://www.cdc.gov/brfss/annual_data/annual_2021.html) to help a hospital identify patients who would benefit from an educational program about heart health. After model iteration and hyperparameter tuning, our final model can **correctly predict about 81% of the people with a heart condition**, while only mislabeling about 29% of negative cases as positive. 
 
 ## Business Problem
 ***
@@ -54,11 +54,13 @@ Here is a visual representation illustrating the disparity in heart disease rate
 
 ## Data Modeling
 ***
-Since our stakeholder wants to identify as many people as possible who could have a heart condition and the cost of a false positive (identifying a person as likely to have a heart condition when they will not) is low, then we should prioritize the true positive rate, or recall. Given the imbalance in our dataset, I will use the f2-score as my evaluation metric. 
+Since our stakeholder wants to identify as many people as possible who could have a heart condition and the cost of a false positive (identifying a person as likely to have a heart condition when they will not) is low, then we should **prioritize the true positive rate, or recall**. Given the imbalance in our dataset, I will use the f2-score as my evaluation metric. This is a weighted harmonic mean between precision and recall which gives more weight to recall. 
 
-Multiple different classification algorithms were explored- logistic regression, K-Nearest Neighbors, a basic Decision Tree, and Random Forest models were investigated, tuned, and evaluated. The F1 score was the primary metric used for evaluation.
-
-Many models were used, tuned and scored before deciding to go with an XGBClassifier. 
+During model iteration, the following models were used and scored:
+- DummyClassifier
+- LogisticRegression
+- RandomForestClassifier
+- XGBClassifier **Final Model**
 
 Given that this data is from a questionare, feature importance relates to questions being asked.
 ![feature_importance](./images/feature_importance.png)
@@ -67,7 +69,11 @@ Given that this data is from a questionare, feature importance relates to questi
 ***
 Now that we have found the final model, I will score each of our models on the test data. 
 
-![test_scores](./images/test_scores.jpg)
+|           name |    f2 | accuracy | precision | recall | roc_auc |
+|---------------:|------:|---------:|----------:|-------:|--------:|
+|    Dummy Model |  0.00 |    91.92 |      0.00 |   0.00 |   50.00 |
+| Baseline Model |  7.50 |    91.94 |     51.39 |   6.18 |   83.41 |
+|    Final Model | 49.87 |    72.25 |     19.86 |  80.14 |   83.27 |
 
 The final model was the best performing model on the test data, capturing almost 81% of all of the positive cases. Given the over 300,000 data entries, lack of data leakage, and cross-validation done during training, I'm confident that this model would generalize. 
 
@@ -78,11 +84,16 @@ Based on this confusion matrix our model would correctly predict 81% of positive
 ## Conclusions
 ***
 ### Recommendations
-- Based on our final model I would recommend that the hospital develop a 6-question questionaire to get information about their patience for all features except weight. 
+Based on our final model I would recommend that the hospital develop a 6-question questionaire which would include questions about:
+- Arthritis
+- Diabetes
+- Age
+- General Health
+- Sex
+- Smoking History
 ### Limitations
-- This model would not be as helpful in cases where the cost of a positve identification is increased, such as recommending a more invasive procedure, medication, or otherwise more expenive or cumbersome consequence.   
+- This model would not be as helpful in cases where the cost of a positve identification is increased, such as recommending a more invasive procedure, medication, or otherwise more expensive or cumbersome consequence.   
 ### Next Steps
-- Determine with stakeholders which questions to include based on their feature importance, ease of retrieving that data, and cost of excluding that data from the model
 - Determine with stakeholders the appropriate threshold to balance out true positive rate and false positive rate.
 - Gather more data to see if there are other features which may help predict having a heart condition.
 
