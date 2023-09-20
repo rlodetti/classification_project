@@ -77,7 +77,7 @@ Now that we have found the final model, I will score each of our models on the t
 
 The final model was the best performing model on the test data, capturing almost 81% of all of the positive cases. Given the over 300,000 data entries, lack of data leakage, and cross-validation done during training, I'm confident that this model would generalize. 
 
-![confusion_matrix](./images/confusion_matrix.png)
+<img src="./images/confusion_matrix.png" alt="confusion matrix" width="400" height="400" class="blog-image">
 
 Based on this confusion matrix our model would correctly predict 81% of positive cases and 72% of negative cases. It would incorrectly predict 28% of negative cases as positive and 19% of positive cases as negative. 
 
