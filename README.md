@@ -84,19 +84,34 @@ Based on this confusion matrix our model would correctly predict 81% of positive
 ## Conclusions
 ***
 ### Recommendations
-Based on our final model I would recommend that the hospital develop a 6-question questionaire which would include questions about:
-- Arthritis
-- Diabetes
-- Age
-- General Health
-- Sex
-- Smoking History
+Based on our final model I would make the following recommendations:
+1. Develop a 6-question questionaire which would include questions about:
+    - Arthritis
+    - Diabetes
+    - Age
+    - General Health
+    - Sex
+    - Smoking History
+<br>
+<br>
+2. Use an XGBClassifier model with the following parameters:
+    - eta: 0.1
+    - max_depth: 2
+    - n_estimators: 400
+    - reg_lambda: 10
+    - reg_alpha: 0.1
+    - min_child_weight: 1
+    - gamma: 10
+    - colsample_bytree: 3/7
+    - tree_method: "hist"
+    - scale_pos_weight: 212912/18728
+
+
 ### Limitations
 - This model would not be as helpful in cases where the cost of a positve identification is increased, such as recommending a more invasive procedure, medication, or otherwise more expensive or cumbersome consequence.   
 ### Next Steps
 - Determine with stakeholders the appropriate threshold to balance out true positive rate and false positive rate.
 - Gather more data to see if there are other features which may help predict having a heart condition.
-
 ## For More Information
 
 See the full analysis in the [Jupyter Notebook](./classification_project.ipynb) or review this [presentation](./classification_project_presentation.pdf).
